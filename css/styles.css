@@ -9,8 +9,8 @@
 
 :root {
   --ink: #111827;
-  --ink-muted: #939ba7;
-  --ink-soft: #717985;
+  --ink-muted: #626b78;
+  --ink-soft: #626b78;
   --brand: #4f46e5;
   --brand-dark: #4338ca;
   --brand-tint: #eef2ff;
@@ -28,6 +28,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-padding-top: 92px;
+}
+
 body {
   margin: 0;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
@@ -37,8 +41,23 @@ body {
   background: var(--surface);
 }
 
-:focus {
-  outline: none;
+:focus-visible {
+  outline: 3px solid #0b63ce;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 8px;
+  left: -9999px;
+  z-index: 100;
+  padding: 10px 14px;
+  background: #ffffff;
+  color: #111827;
+}
+
+.skip-link:focus-visible {
+  left: 8px;
 }
 
 img {
@@ -137,10 +156,13 @@ a {
 }
 
 .nav-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   font-size: 15px;
   font-weight: 500;
   color: #374151;
-  cursor: pointer;
+  text-decoration: none;
 }
 
 .nav-item:hover {
@@ -171,6 +193,7 @@ a {
   padding: 11px 22px;
   border: 1px solid transparent;
   border-radius: 10px;
+  appearance: none;
   font: inherit;
   font-size: 15px;
   font-weight: 600;
@@ -440,6 +463,28 @@ a {
   font-size: 15px;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.trial :focus-visible {
+  outline-color: #ffffff;
+}
+
+.trial__success {
+  flex: 1 1 100%;
+  margin: 8px 0 0;
+  color: #ffffff;
+}
+
 /* Footer */
 
 .site-footer {
@@ -487,10 +532,11 @@ a {
   margin-top: 18px;
 }
 
-.social a {
+.social a,
+.social span {
   display: inline-flex;
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
 }
 
 .legal {
@@ -662,6 +708,18 @@ a {
 /* Responsive */
 
 @media (max-width: 900px) {
+  .site-header__inner {
+    gap: 12px;
+  }
+
+  .site-header__actions {
+    gap: 10px;
+  }
+
+  .site-header__actions > span.link-quiet {
+    display: none;
+  }
+
   .hero__grid,
   .grid-3,
   .site-footer__cols {
